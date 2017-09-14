@@ -186,7 +186,6 @@ class ZeroG(object):
 
     def _dash_cb(self, value):
         self._dash_value = value
-	print value
         if self._dash_value:
             if self._dash_state:
                 self._dash_state = False
@@ -232,15 +231,15 @@ if __name__ == '__main__':
     # Launches a second process to disable the original zero-g:
     zo.disable_orig_zerog = zo._disable_cuff()
 
-    # starting_positions=dict(zip(['left_w0', 'left_w1', 'left_w2', 'left_e0', 'left_e1', 'left_s0', 'left_s1'],
-    #                             [0.0, 0.20943951023931953, 0.0, 0.0, 2.0420352248333655, -0.598647933434055, -0.640535835481919-0.1]))
+    starting_positions=dict(zip(['left_w0', 'left_w1', 'left_w2', 'left_e0', 'left_e1', 'left_s0', 'left_s1'],
+                                [0.0, 0.20943951023931953, 0.0, 0.0, 2.0420352248333655, -0.598647933434055, -0.640535835481919-0.1]))
                                 # the -0.1 keeps the arm a little bit above the table
 
-    # for key, value in zo._stiff_joints.iteritems():
-    #     starting_positions[key]=value  # changes the values for the stiff joints
+    for key, value in zo._stiff_joints.iteritems():
+        starting_positions[key]=value  # changes the values for the stiff joints
 
-    # print "Moving to starting joint positions!"
-    # zo._limb.move_to_joint_positions(starting_positions, timeout=15.0, threshold=0.008726646)
+    print "Moving to starting joint positions!"
+    zo._limb.move_to_joint_positions(starting_positions, timeout=15.0, threshold=0.008726646)
 
     if zo.initial_position():
         # Starts the controller
